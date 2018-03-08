@@ -7,13 +7,6 @@
 # Local by Flywheel site and it will drop you 
 # into the bash prompt in the Docker container 
 # of the site.
-# 
-# I include this contents as part of my 
-# .bash_profile rather than callling it via 
-# this shell script, but either way should work. 
-# If you do call it from your .bash_profile, 
-# make sure that you change the path to the PHP 
-# script as necesary.
 
 # figure out where we are
 # see https://stackoverflow.com/a/246128/383737
