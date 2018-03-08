@@ -20,10 +20,23 @@ $cwd = $argv[1];
 // get all local site settings
 $local_sites = json_decode(file_get_contents($argv[2] . "/Library/Application Support/Local by Flywheel/sites.json"), true);
 
+// recurse through directories looking for container
+function find_container($path, $site) {
+	$path_parts = pathinfo($path);
+	if ($path_parts['dirname'] == $site['path']) {
+		return $site['container'];
+	} else if ($path_parts['dirname'] != '/') {
+		return find_container($path_parts['dirname'], $site);
+	} else {
+		return null;
+	}
+}
+
 // loop all sites and create map to ids
-foreach($local_sites as $site) {
-	if (strpos($cwd, $site["path"]) !== false) {
-		echo $site["container"];
+foreach($local_sites as $id => $site) {
+	$container = find_container("$cwd/trick", $site);
+	if ($container) {
+		echo $container;
 		return;
 	}
 }
