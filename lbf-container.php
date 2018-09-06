@@ -5,7 +5,7 @@
  * March 2018
  * 
  * This script takes input of the current working directory and your home directory, and will output
- * associated Docker comntainer ID for the Loocal by Flywheel site that the current working directory is part
+ * associated Docker comntainer ID for the Local by Flywheel site that the current working directory is part
  * of.
  * 
  * It loops over Local by Flywheel's sites.json file and returns the container ID for the folder you passed
