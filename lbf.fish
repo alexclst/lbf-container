@@ -3,7 +3,6 @@
 # get site id from old container script
 set SITE_ID (php  ~/bin/lbf-container/lbf-container.php $PWD $HOME)
 
-# return if no id was found
 # all functions only make sense within Local site folders
 if test -z "$SITE_ID"
 	echo "This is not a Local site's folder."
