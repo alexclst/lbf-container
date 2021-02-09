@@ -28,4 +28,4 @@ Any feedback is welcome. Feel free to email me or submit issues on the [Bitbucke
 
 ## Version 1
 
-This project started out life with classic Local as a way to drop into the Docker container's shell. Since version 5, that is no longer needed, but now that `local-cli` is around the same underlying script can be used to simplify running those commands without needing to pass a site ID. The old version can still be seen in Git commit history. The script still uses *lbf* as a shorter command name, and tribute to the original name **Local**.
+This project started out life with classic Local as a way to drop into the Docker container's shell. Since version 5, that is no longer needed, but now that `local-cli` is around the same underlying script can be used to simplify running those commands without needing to pass a site ID. The old version can still be seen in Git commit history. The script still uses *lbf* as a shorter command name, and tribute to the original name **Local by Flywheel**.
