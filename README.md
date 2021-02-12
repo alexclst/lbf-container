@@ -26,7 +26,7 @@ Along with passing through commands, this script also adds the following:
 * `open` will open the site in your default browser
 ## VS Code Tasks
 
-You can configure VS Code to [run these commands](https://code.visualstudio.com/docs/editor/tasks) using the `tasks.json` file in `.vscode` or a Workspace (which the below example is of). This can enabale easy access to controlling a Local from its associated VS Code environment.
+You can configure VS Code to [run these commands](https://code.visualstudio.com/docs/editor/tasks) using the `tasks.json` file in `.vscode` or a Workspace (which the below example is of). This can enable easy access to controlling a Local from its associated VS Code environment.
 
 ```json
 "tasks": {
