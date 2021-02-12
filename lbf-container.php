@@ -19,12 +19,15 @@ $cwd = $argv[1];
 
 // get all local site settings
 $local_sites = json_decode( file_get_contents( $argv[2] . '/Library/Application Support/Local/sites.json' ), true );
+$return = $argv[3];
 
 // recurse through directories looking for container
 function find_container( $path, $site ) {
+	global $return;
+
 	$path_parts = pathinfo( $path );
 	if ( $path_parts['dirname'] == $site['path'] ) {
-		return $site['id'];
+		return $site[$return];
 	} elseif ( '/' != $path_parts['dirname'] ) {
 		return find_container( $path_parts['dirname'], $site );
 	} else {
