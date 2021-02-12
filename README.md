@@ -18,9 +18,41 @@ Simply run the `lbf.fish` shell script from your Local site's folder. The script
 
 You may want to `ln -s` the `lbf.fish` script to `lbf` somewhere that is in your shell's PATH to make it easier to run. You will also need to `chmod +x` the symlink to get it to run in the command line.
 
-`lbf-container.php` takes input of two paths (if called from `lbf.sh` this will be the current working directory and your home directory) and returns the Docker container ID associated with the first path passed in. It finds the Site ID by parsing Local's own `sites.json` file that lives within your user's library (hence why it needs your home directory). This script is really designed only to be run from `lbf.fish`. I wrote this part in PHP because I was more comfortable parsing JSON in PHP than Bash.
+`lbf-container.php` takes input of two paths (if called from `lbf.sh` this will be the current working directory and your home directory) and returns the info asked for in the third argument from the first path passed in. It finds the Site ID by parsing Local's own `sites.json` file that lives within your user's library (hence why it needs your home directory). This script is really designed only to be run from `lbf.fish`. I wrote this part in PHP because I was more comfortable parsing JSON in PHP than Fish.
 
-If you use a different shell, you can still use the Fish script as a guide for how to write a script for the shell you prefer.
+Along with passing through commands, this script also adds the following:
+
+* `restart` will restart a site
+* `open` will open the site in your default browser
+## VS Code Tasks
+
+You can configure VS Code to [run these commands](https://code.visualstudio.com/docs/editor/tasks) using the `tasks.json` file in `.vscode` or a Workspace (which the below example is of). This can enabale easy access to controlling a Local from its associated VS Code environment.
+
+```json
+"tasks": {
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Site",
+			"group": "none",
+			"type": "shell",
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"command": "lbf start-site",
+			"presentation": {
+				"reveal": "never",
+				"focus": false,
+				"echo": true,
+				"panel": "dedicated",
+				"clear": false,
+				"group": "server"
+			},
+			"problemMatcher": []
+		}
+	]
+},
+```
 
 ## Feedback
 
