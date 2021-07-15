@@ -12,6 +12,16 @@ if test $argv[1] = 'help'
 	exit
 end
 
+# ensure that Local is running before we attempt to do anything with it
+begin
+	pgrep Local
+end &> /dev/null
+if test $status = 1 # Local isn't running
+	open -g /Applications/Local.app/
+	sleep 5
+	osascript -e 'tell application "System Events" to set visible of process "Local" to false'
+end
+
 # see if we wanted to list sites
 if test $argv[1] = 'list-sites'
 	local-cli list-sites
@@ -26,16 +36,6 @@ set SITE_ID (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "id")
 if test -z "$SITE_ID"
 	echo "This is not a Local site's folder."
 	exit
-end
-
-# ensure that Local is running before we attempt to do anything with it
-begin
-	pgrep Local
-end &> /dev/null
-if test $status = 1 # Local isn't running
-	open -g /Applications/Local.app/
-	sleep 5
-	osascript -e 'tell application "System Events" to set visible of process "Local" to false'
 end
 
 # check for custom restart command
