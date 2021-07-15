@@ -4,7 +4,7 @@
 * February 2020
 * Version 2
 
-The `lbf.fish` script can be called while in a folder that is part of a [**Local**](https://local.getflywheel.com) site to run any `local-cli` command using that site's ID.
+The `lbf.fish` script can be called while in a folder that is part of a [**Local**](https://localwp.com) site to run any `local-cli` command using that site's ID.
 
 ## Requirements
 
@@ -14,13 +14,11 @@ The `lbf.fish` script can be called while in a folder that is part of a [**Local
 * [local-cli](https://www.npmjs.com/package/@getflywheel/local-cli) in your path
 ## Usage
 
-Simply run the `lbf.fish` shell script from your Local site's folder. The script passes your current working directory and home directory to `lbf-container.php`, which returns the Site ID. The shell script uses the Site ID to run the passed command with `local-cli`.
+First link `ln -s` the `lbf.fish` script to `lbf` in the folder above this repo, which is intended to be somewhere that is in your shell's PATH to make it easier to run. You will also need to `chmod +x` the symlink to get it to run in the command line. Then simply use `lbf` to run anything that you'd run with `local-cli`.
 
-You may want to `ln -s` the `lbf.fish` script to `lbf` somewhere that is in your shell's PATH to make it easier to run. You will also need to `chmod +x` the symlink to get it to run in the command line.
+`lbf-container.php` takes input of two paths (if called from `lbf.fish` this will be the current working directory and your home directory) and returns the info asked for in the third argument from the first path passed in. It finds the requested data by parsing Local's own `sites.json` file that lives within your user's library (hence why it needs your home directory). This script is really designed only to be run from `lbf.fish`. I wrote this part in PHP because I was more comfortable parsing JSON in PHP than Fish.
 
-`lbf-container.php` takes input of two paths (if called from `lbf.sh` this will be the current working directory and your home directory) and returns the info asked for in the third argument from the first path passed in. It finds the Site ID by parsing Local's own `sites.json` file that lives within your user's library (hence why it needs your home directory). This script is really designed only to be run from `lbf.fish`. I wrote this part in PHP because I was more comfortable parsing JSON in PHP than Fish.
-
-Along with passing through commands, this script also adds the following:
+Along with passing through commands to `local-cli`, this script also adds the following:
 
 * `restart` will restart a site
 * `open` will open the site in your default browser

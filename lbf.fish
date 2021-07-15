@@ -12,8 +12,15 @@ if test $argv[1] = 'help'
 	exit
 end
 
-# get site id from old container script
-set SITE_ID (php  ~/bin/lbf-container/lbf-container.php $PWD $HOME "id")
+# see if we wanted to list sites
+if test $argv[1] = 'list-sites'
+	local-cli list-sites
+	exit
+end
+
+# get site id from container script
+set SCRIPT_PATH (status --current-filename)
+set SITE_ID (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "id")
 
 # all functions only make sense within Local site folders
 if test -z "$SITE_ID"
@@ -42,7 +49,7 @@ end
 # see if we were asked to launch the site
 # TODO: remove once local-cli introduces this
 if test $argv[1] = 'open'
-	set SITE_URL (php  ~/bin/lbf-container/lbf-container.php $PWD $HOME "domain")
+	set SITE_URL (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
 	open "http://$SITE_URL"
 	exit
 end
