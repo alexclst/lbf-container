@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/fish
+#!/usr/bin/env fish
 
 # see if we were called naked
 if test -z "$argv[1]"
