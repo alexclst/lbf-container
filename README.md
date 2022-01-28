@@ -9,7 +9,7 @@ The `lbf.fish` script can be called while in a folder that is part of a [**Local
 ## Requirements
 
 * [Local](https://localwp.com) version 5.9.2 or newer
-* [Fish](https://fishshell.com) installed via [Homebrew](https://brew.sh)
+* [Fish](https://fishshell.com)
 * PHP in your path, you can install it with Homebrew
 * [local-cli](https://www.npmjs.com/package/@getflywheel/local-cli) in your path
 ## Usage
