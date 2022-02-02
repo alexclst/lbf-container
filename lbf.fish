@@ -62,16 +62,17 @@ end
 
 # keep a dying site alive
 if test $argv[1] = 'keepalive'
-    set SITE_URL "http://"(php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
+    set HOSTNAME (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
+    set SITE_URL "http://"$HOSTNAME
+    set KEEPALIVE ~/.tg-site-keepalive-$HOSTNAME
     while true
-        curl -I --silent $SITE_URL >.tg-site-keepalive &
+        curl -I --silent $SITE_URL >$KEEPALIVE &
         sleep 3
-        if test -s .tg-site-keepalive
-            rm .tg-site-keepalive
+        if test -s $KEEPALIVE
+            rm $KEEPALIVE
             echo -ne '\r'(date)'                         '
             sleep 10
         else
-            kill $last_pid
             echo -e "\r----------- "(date)" -----------"
             local-cli 'stop-site' $SITE_ID
             local-cli 'start-site' $SITE_ID
