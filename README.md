@@ -54,7 +54,7 @@ You can configure VS Code to [run these commands](https://code.visualstudio.com/
 
 ## Feedback
 
-Any feedback is welcome. Feel free to email me or submit issues on the [Bitbucket repository](https://bitbucket.org/alexclst/lbf-container).
+Any feedback is welcome. Feel free to submit issues on the [Github repository](https://github.com/alexclst/lbf-container/issues).
 
 ## Version 1
 
