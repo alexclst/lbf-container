@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # see if we were called naked
-if test -z "$argv[1]"
+if [ -z "$argv[1]" ]
     local-cli
     exit
 end
@@ -28,15 +28,19 @@ if test $argv[1] = 'list-sites'
     exit
 end
 
-# get site id from container script
-set SCRIPT_PATH (status --current-filename)
-set SITE_ID (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "id")
+# get site from Local's sites.json file
+set JQCMD (echo '.[] | select( .path as $jqpath | "'$PWD'" | startswith($jqpath))')
+set SITE_JSON (jq $JQCMD ~/Library/Application\ Support/Local/sites.json)
 
-# all functions only make sense within Local site folders
-if test -z "$SITE_ID"
+# all remaining functions only make sense within Local site folders
+# if not in a site folder the site json will be enpty
+if [ -z "$SITE_JSON" ]
     echo "This is not a Local site's folder."
     exit
 end
+
+# now that we know we have a single site get that site's id
+set SITE_ID (echo $SITE_JSON | jq -r '.id')
 
 # check for custom restart command
 # TODO: remove once local-cli introduces this
@@ -49,20 +53,21 @@ end
 # see if we were asked to launch the site
 # TODO: remove once local-cli introduces this
 if test $argv[1] = 'open'
-    set SITE_URL (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
-    open "http://$SITE_URL"
+    set HOSTNAME (echo $SITE_JSON | jq -r '.domain')
+    open "http://$HOSTNAME"
     exit
 end
 
 # return the url of the site (note, always returns http)
 if test $argv[1] = 'url'
-    echo "http://"(php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
+    set HOSTNAME (echo $SITE_JSON | jq -r '.domain')
+    echo "http://$HOSTNAME"
     exit
 end
 
 # keep a dying site alive
 if test $argv[1] = 'keepalive'
-    set HOSTNAME (php  $SCRIPT_PATH-container/lbf-container.php $PWD $HOME "domain")
+    set HOSTNAME (echo $SITE_JSON | jq -r '.domain')
     set SITE_URL "http://"$HOSTNAME
     set KEEPALIVE ~/.tg-site-keepalive-$HOSTNAME
     while true
