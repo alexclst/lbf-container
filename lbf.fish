@@ -65,6 +65,17 @@ if test $argv[1] = 'url'
     exit
 end
 
+# open the database in TablePlus
+# currently in alpha status and not working.
+# see https://github.com/TablePlus/TablePlus/issues/3151
+if test $argv[1] = 'db'
+    set DB_USER (echo $SITE_JSON | jq -r '.mysql.user')
+    set DB_PASS (echo $SITE_JSON | jq -r '.mysql.password')
+    set SITE_NAME (echo $SITE_JSON | jq -r '.name')
+    open "mysql://$DB_USER:$DB_PASS@$HOME/Library/Application%20Support/Local/run/$SITE_ID/mysql/mysqld.sock/local?enviroment=local&safeModeLevel=0&advancedSafeModeLevel=0&name=$SITE_NAME"
+    exit
+end
+
 # keep a dying site alive
 if test $argv[1] = 'keepalive'
     set HOSTNAME (echo $SITE_JSON | jq -r '.domain')
